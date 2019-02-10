@@ -29,3 +29,11 @@
   padding: 10px;
   margin: 5px 0;
 }
+
+.nav-item {
+  margin-left: 10px;
+}
+
+.post-comments {
+  border: 1px dotted black;
+}

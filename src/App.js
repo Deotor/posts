@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import { Provider } from "react-redux";
 
-import Posts from "./components/Posts";
-import PostForm from "./components/Postform";
+import Header from "./components/Header";
+import Main from "./components/Main";
 
 import store from "./store";
 
@@ -12,9 +12,8 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <PostForm />
-          <hr />
-          <Posts />
+          <Header />
+          <Main />
         </div>
       </Provider>
     );

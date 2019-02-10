@@ -1,25 +1,44 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchPosts } from "../actions/postActions";
+import { fetchPosts, delPost } from "../actions/postActions";
+import { Link } from "react-router-dom";
 
 class Posts extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchPosts();
     console.log(this.props);
   }
 
+  onDel(post) {
+    this.props.delPost(post.id);
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.newPost) {
-      this.props.posts.unshift(nextProps.newPost);
+    if (nextProps.delRes) {
+      for (var i = 0; i < this.props.posts.length; i++) {
+        if (this.props.posts[i].id === nextProps.delRes.id) {
+          this.props.posts.splice(i, 1);
+        }
+      }
     }
   }
 
   render() {
     const postItems = this.props.posts.map(post => (
       <div className="post" key={post.id}>
-        <h3>{post.title}</h3>
+        <h3>
+          <Link to={`/post/${post.id}`}>{post.title}</Link>
+        </h3>
         <p>{post.body}</p>
+        <button
+          ref={post.id}
+          onClick={this.onDel.bind(this, post)}
+          type="button"
+          className="btn btn-danger"
+        >
+          Del
+        </button>
       </div>
     ));
     return (
@@ -33,16 +52,15 @@ class Posts extends Component {
 
 Posts.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired,
-  newPost: PropTypes.object
+  posts: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
   posts: state.posts.items,
-  newPost: state.posts.item
+  delRes: state.posts.delRes
 });
 
 export default connect(
   mapStateToProps,
-  { fetchPosts }
+  { fetchPosts, delPost }
 )(Posts);
