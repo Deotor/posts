@@ -57,7 +57,10 @@ export const createCom = postData => dispatch => {
 };
 
 export const delPost = id => dispatch => {
-  fetch("https://simple-blog-api.crew.red/posts/" + id)
+  console.log("https://simple-blog-api.crew.red/posts/" + id);
+  fetch("https://simple-blog-api.crew.red/posts/" + id, {
+    method: "DELETE"
+  })
     .then(res => res.json())
     .then(delRes =>
       dispatch({

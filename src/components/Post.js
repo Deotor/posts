@@ -23,7 +23,7 @@ class Post extends Component {
     e.preventDefault();
 
     const com = {
-      comId: this.props.post.comments.length + 1,
+      postId: this.props.post.id,
       body: this.state.body
     };
     console.log(com);

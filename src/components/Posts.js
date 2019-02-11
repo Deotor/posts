@@ -12,17 +12,16 @@ class Posts extends Component {
 
   onDel(post) {
     this.props.delPost(post.id);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.delRes) {
+    if (post.id) {
       for (var i = 0; i < this.props.posts.length; i++) {
-        if (this.props.posts[i].id === nextProps.delRes.id) {
+        if (this.props.posts[i].id === post.id) {
           this.props.posts.splice(i, 1);
         }
       }
     }
   }
+
+  componentWillReceiveProps(nextProps) {}
 
   render() {
     const postItems = this.props.posts.map(post => (
